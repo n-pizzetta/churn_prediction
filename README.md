@@ -1,1 +1,1 @@
-# Scoring 3: Churn predictino
+# Scoring 3: Churn prediction
