@@ -9,6 +9,10 @@ import pandas as pd
 import numpy as np
 
 
+#############
+## CLASSES ##
+#############
+
 #-------- Defining the custom transformers --------#
 
 class DropNaN(BaseEstimator, TransformerMixin):
@@ -128,9 +132,57 @@ class SeniorStatusTransformer(BaseEstimator, TransformerMixin):
         X[self.column] = X[self.column].map({0: 'No', 1: 'Yes'}).astype('object')
         return X
 
+class TargetTransformer(BaseEstimator, TransformerMixin):
+    def __init__(self, column='churn'):
+        self.column = column
 
+    def fit(self, X, y=None):
+        return self  # Nothing to fit
+
+    def transform(self, y):
+        y = y.copy()
+        # Transform the target values to 'No' and 'Yes'
+        y = y.map({'No': 0, 'Yes': 1}).astype('float')
+        return y
+
+class FloatConverter(BaseEstimator, TransformerMixin):
+    def __init__(self, exclude_columns=None):
+        self.exclude_columns = exclude_columns  # List of columns to exclude from conversion
+        self.columns = None  # Placeholder for column names
+
+    def fit(self, X, y=None):
+        # No fitting necessary here
+        return self
+
+    def transform(self, X):
+        # Check if `columns` attribute has been set
+        if not hasattr(self, 'columns') or self.columns is None:
+            raise ValueError("Columns are not set in FloatConverter. Ensure columns are set during fit.")
+        
+        # Convert to DataFrame if X is an array
+        if isinstance(X, np.ndarray):
+            X = pd.DataFrame(X, columns=self.columns)
+        
+        # Exclude specific columns and convert the rest to float
+        if self.exclude_columns:
+            cols_to_convert = [col for col in X.columns if col not in self.exclude_columns]
+            X[cols_to_convert] = X[cols_to_convert].astype('float')
+        else:
+            X = X.astype('float')  # Convert all if no exclusions specified
+
+        # Convert back to numpy array if necessary
+        return X.values if not isinstance(X, pd.DataFrame) else X
+
+    
 class PipelineWithY(Pipeline):
+    def __init__(self, steps, target_transformer=None):
+        super().__init__(steps)
+        self.target_transformer = target_transformer  # Optional transformer for y
+
     def fit(self, X, y=None, **fit_params):
+        if y is not None and self.target_transformer:
+            y = self.target_transformer.fit_transform(y)  # Apply y transformation during fit
+        
         for name, transform in self.steps:
             if hasattr(transform, 'fit_transform'):
                 # Attempt to fit_transform with both X and y
@@ -145,9 +197,20 @@ class PipelineWithY(Pipeline):
                     X = transform.fit_transform(X)
             else:
                 X = transform.fit(X, y).transform(X)
+        
+        # After 'preparation', get the feature names and set them in 'float_converter'
+            if name == 'preparation':
+                if hasattr(transform, 'get_feature_names_out'):
+                    feature_names = transform.get_feature_names_out()
+                    if 'float_converter' in dict(self.steps):
+                        self.named_steps['float_converter'].columns = feature_names
+
         return self
 
     def transform(self, X, y=None):
+        if y is not None and self.target_transformer:
+            y = self.target_transformer.transform(y)  # Apply y transformation in transform
+        
         for name, transform in self.steps:
             if hasattr(transform, 'transform'):
                 try:
@@ -165,7 +228,14 @@ class PipelineWithY(Pipeline):
             return X
 
 
+
+###############
+## FUNCTIONS ##
+###############
+        
+    
 def create_full_pipeline(df):
+
     #-------- Defining input variables --------#
     id_col = "id"
     target_col = "churn"
@@ -181,7 +251,7 @@ def create_full_pipeline(df):
     #-------- Defining the transformers --------#
     cat_transformer = Pipeline(
         steps=[
-            ('encoder', OneHotEncoder(sparse_output=False))
+            ('encoder', OneHotEncoder(drop="first", sparse_output=False))
         ]
     )
 
@@ -190,6 +260,8 @@ def create_full_pipeline(df):
             ('scaler', StandardScaler())
         ]
     )
+
+    target_transformer = TargetTransformer(column='churn')
 
     #-------- Defining the preparation pipeline --------#
     preparation = ColumnTransformer(
@@ -207,14 +279,10 @@ def create_full_pipeline(df):
         steps=[
             ('drop_nan', DropNaN(columns_list=None, reset_index=True)),
             ('senior_status', SeniorStatusTransformer(column=senior_col)),
-            ('preparation', preparation)
-        ]
+            ('preparation', preparation),
+            ('float_converter', FloatConverter(exclude_columns=['id']))  # Ensures all columns are float
+        ],
+        target_transformer=target_transformer
     )
 
     return full_pipeline
-
-
-if __name__ == "__main__":
-    df = pd.read_csv("data/data.csv")
-    
-    create_full_pipeline(df)

@@ -1,6 +1,6 @@
 # Customer Segmentation
 
-### **Cluster 0: Phone Service Only Customers**
+### **Cluster 2: Phone Service Only Customers**
 **Churn Rate: 7.43%** (Lowest among all clusters)
 
 Customers in Cluster 0 are moderate-tenure users who only subscribe to phone services. They tend to prefer traditional payment methods and longer-term contracts, indicating a possible preference for stability and familiarity.
@@ -69,7 +69,7 @@ Cluster 1 consists of newer customers who are possibly more price-sensitive and 
 
 ---
 
-### **Cluster 2: Loyal, High-Value Customers**
+### **Cluster 0: Loyal, High-Value Customers**
 **Churn Rate: 14.35%** (Moderate churn rate)
 
 Cluster 2 represents the company's most loyal and valuable customers. They have been with the company for a long time, subscribe to multiple services, and are comfortable with digital and automated interactions.
