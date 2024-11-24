@@ -14,6 +14,7 @@
 - [Recommendations](#recommendations)
 - [Conclusion](#conclusion)
 - [Disclaimer](#disclaimer)
+- [Project Structure](#project-structure)
 
 ## Introduction
 
@@ -106,6 +107,46 @@ The interactive dashboard serves as a valuable tool for stakeholders to explore 
 ## Disclaimer
 
 This is a simulated company case study for educational purposes. TelcoX Communications is a fictional entity, and the dataset used is publicly available on [Kaggle](https://www.kaggle.com/datasets/blastchar/telco-customer-churn).
+
+
+## Project Structure
+
+Below is the organization of this repository:
+
+```{bash}
+.
+├── data/
+│   ├── data.csv                         # Original dataset for analysis
+│   └── data_cluster.csv                 # Dataset with clustering results
+├── models/
+│   ├── classification_pipeline.joblib   # Classification pipeline model
+│   ├── clustering_pipeline.joblib       # Clustering pipeline model
+│   └── target_transformer.joblib        # Target variable transformer for model preprocessing
+├── notebooks/
+│   ├── nathan.ipynb                     # Analysis and work by Nathan
+│   ├── nathan_full_pipeline.ipynb       # Full pipeline implementation by Nathan
+│   ├── nathan_model_optimization.ipynb  # Model optimization notebook by Nathan
+│   ├── pierre.ipynb                     # Analysis and work by Pierre
+│   ├── sigurd.ipynb                     # Analysis and work by Sigurd
+│   └── theo.ipynb                       # Analysis and work by Theo
+├── scripts/
+│   ├── predict.py                       # Script for making predictions with trained models
+│   └── train_models.py                  # Script for training and saving models
+└── utils/
+    ├── classification_pipeline.py       # Code for the classification pipeline
+    ├── clustering_pipeline.py           # Code for the clustering pipeline
+    ├── custom_transformers.py           # Custom transformation functions
+    ├── pipeline.py                      # End-to-end pipeline configuration
+    └── preprocessing_pipeline.py        # Preprocessing pipeline implementation
+    ├── CUSTOMER_SEGMENTS.md             # Documentation on customer segmentation results
+├── .gitignore
+├── MIT-LICENSE.txt
+├── README.md
+├── TSE_Project_guidelines_M2DSSS.pdf
+├── dashboard_streamlit.py               # Streamlit dashboard for interactive data visualization
+├── requirements.txt
+```
+
 
 ---
 
