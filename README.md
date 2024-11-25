@@ -138,8 +138,8 @@ Below is the organization of this repository:
     ├── custom_transformers.py           # Custom transformation functions
     ├── pipeline.py                      # End-to-end pipeline configuration
     └── preprocessing_pipeline.py        # Preprocessing pipeline implementation
-    ├── CUSTOMER_SEGMENTS.md             # Documentation on customer segmentation results
 ├── .gitignore
+├── CUSTOMER_SEGMENTS.md                 # Documentation on customer segmentation results
 ├── MIT-LICENSE.txt
 ├── README.md
 ├── TSE_Project_guidelines_M2DSSS.pdf
