@@ -116,35 +116,31 @@ Below is the organization of this repository:
 ```{bash}
 .
 ├── data/
-│   ├── data.csv                         # Original dataset for analysis
-│   └── data_cluster.csv                 # Dataset with clustering results
+│   ├── data.csv                             # Original dataset for analysis
+│   └── data_cluster.csv                     # Dataset with clustering results
 ├── models/
-│   ├── classification_pipeline.joblib   # Classification pipeline model
-│   ├── clustering_pipeline.joblib       # Clustering pipeline model
-│   └── target_transformer.joblib        # Target variable transformer for model preprocessing
+│   ├── classification_pipeline.joblib       # Classification pipeline model
+│   ├── clustering_pipeline.joblib           # Clustering pipeline model
+│   └── target_transformer.joblib            # Target variable transformer for model preprocessing
 ├── notebooks/
-│   ├── nathan.ipynb                     # Analysis and work by Nathan
-│   ├── nathan_full_pipeline.ipynb       # Full pipeline implementation by Nathan
-│   ├── nathan_model_optimization.ipynb  # Model optimization notebook by Nathan
-│   ├── pierre.ipynb                     # Analysis and work by Pierre
-│   ├── sigurd.ipynb                     # Analysis and work by Sigurd
-│   └── theo.ipynb                       # Analysis and work by Theo
+│   ├── eda.ipynb                            # Analysis and work by Nathan
+│   ├── full_pipeline_applied.ipynb          # Full pipeline implementation by Nathan
+│   └── different_model_optimizations.ipynb  # Model optimization notebook by Nathan
 ├── scripts/
-│   ├── predict.py                       # Script for making predictions with trained models
-│   └── train_models.py                  # Script for training and saving models
+│   ├── predict.py                           # Script for making predictions with trained models
+│   └── train_models.py                      # Script for training and saving models
 └── utils/
-    ├── classification_pipeline.py       # Code for the classification pipeline
-    ├── clustering_pipeline.py           # Code for the clustering pipeline
-    ├── custom_transformers.py           # Custom transformation functions
-    ├── pipeline.py                      # End-to-end pipeline configuration
-    └── preprocessing_pipeline.py        # Preprocessing pipeline implementation
+    ├── classification_pipeline.py           # Code for the classification pipeline
+    ├── clustering_pipeline.py               # Code for the clustering pipeline
+    ├── custom_transformers.py               # Custom transformation functions
+    └── preprocessing_pipeline.py            # Preprocessing pipeline implementation
 ├── .gitignore
-├── CUSTOMER_SEGMENTS.md                 # Documentation on customer segmentation results
+├── CUSTOMER_SEGMENTS.md                     # Documentation on customer segmentation results
 ├── MIT-LICENSE.txt
 ├── README.md
 ├── TSE_Project_guidelines_M2DSSS.pdf
-├── dashboard_streamlit.py               # Streamlit dashboard for interactive data visualization
-├── requirements.txt
+├── dashboard_streamlit.py                   # Streamlit dashboard for interactive data visualization
+└── requirements.txt
 ```
 
 
