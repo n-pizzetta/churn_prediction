@@ -61,7 +61,7 @@ To address the challenge, the following steps were undertaken:
 
 Explore the detailed analysis and insights through our interactive dashboard:
 
-### **[Access the TelcoX Customer Churn Dashboard](https://churnprediction-4cl6vyj5yyguu5w76xzuoe.streamlit.app)**
+### **[Access the TelcoX Customer Churn Dashboard](https://churnprediction-av3rlkrnnkukzwqsjkzz9m.streamlit.app)**
 
 **Dashboard Features**:
 
